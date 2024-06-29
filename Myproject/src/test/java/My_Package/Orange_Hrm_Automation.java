@@ -69,9 +69,7 @@ public class Orange_Hrm_Automation {
 		//using testng assert and verifying with actual txt
 		String exp ="Enabled";
 		Assert.assertEquals(statusmsg, exp);
-		
-
-		
+			
     }
     
     @AfterTest
