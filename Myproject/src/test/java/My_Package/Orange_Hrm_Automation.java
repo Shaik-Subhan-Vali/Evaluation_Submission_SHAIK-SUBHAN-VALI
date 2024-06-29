@@ -66,7 +66,7 @@ public class Orange_Hrm_Automation {
         //Fetching text from 1st status of the user 
 		String statusmsg= driver.findElement(By.xpath("(//div[@class='oxd-table-cell oxd-padding-cell'])[5]/div")).getText();
 		System.out.println(statusmsg);
-		//using testng assert and verifying with actual text
+		//using testng assert and verifying with actual txt
 		String exp ="Enabled";
 		Assert.assertEquals(statusmsg, exp);
 		
