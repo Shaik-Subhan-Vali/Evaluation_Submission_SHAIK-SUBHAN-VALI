@@ -1,12 +1,15 @@
 package My_Package;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -36,9 +39,11 @@ public class Orange_Hrm_Automation {
 
     @Test
     public void tc() throws InterruptedException, IOException {
+    	
     	//logging in
     	//sending input into username field
 		driver.findElement(By.name("username")).sendKeys("Admin");
+		//using implicit wait
 	    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	    //sending input into paswword field
 		driver.findElement(By.name("password")).sendKeys("admin123"); 
@@ -50,28 +55,42 @@ public class Orange_Hrm_Automation {
         driver.findElement(By.xpath(" //span[@class=\"oxd-topbar-body-nav-tab-item\" and .='User Management ']")).click(); 
         //clicked on users
         driver.findElement(By.xpath("//a[@class=\"oxd-topbar-body-nav-tab-link\"]")).click();
-        
-      
+        //sending input into drop downn
         driver.findElement(By.xpath("//input[@placeholder=\"Type for hints...\"]")).sendKeys("Vijey Surya");
         
         Thread.sleep(3000);
+        //clicking on vijey surya option
         driver.findElement(By.xpath("//span[text()=\"Vijey  Surya\"]")).click();
-      
-        
-        
-//		WebElement dropdown1 = driver.findElement(By.xpath("(//div[@class=\"oxd-select-text-input\"])[1]"));
-//		dropdown1.click();
-//		driver.findElement(By.xpath("(//span[text()=\"Admin\"])[2]")).click();
-//		
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//input[@placeholder=\"Type for hints...\"]")).sendKeys("No.1 Hero");
-//		
-//		WebElement dropdown2 = driver.findElement(By.xpath("(//div[@class=\"oxd-select-text-input\"])[2]"));
-//		dropdown2.click();
-//		driver.findElement(By.xpath("//span[text()=\"Enabled\"]")).click();
-//		driver.findElement(By.xpath("//button[@class=\"oxd-button oxd-button--medium oxd-button--ghost\"]")).click();
-//		
+
+        Thread.sleep(3000);	
+        //Fetching text from 1st status of the user 
+		String statusmsg= driver.findElement(By.xpath("(//div[@class='oxd-table-cell oxd-padding-cell'])[5]/div")).getText();
+		System.out.println(statusmsg);
+		//using testng assert and verifying with actual text
+		String exp ="Enabled";
+		Assert.assertEquals(statusmsg, exp);
 		
+
+		
+    }
+    
+    @AfterTest
+    public void logout() {
+    	
+    	 driver.findElement(By.xpath("//p[@class=\"oxd-userdropdown-name\"]")).click();
+		 driver.findElement(By.xpath("(//a[@class=\"oxd-userdropdown-link\"])[4]")).click();
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
